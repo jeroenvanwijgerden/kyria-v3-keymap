@@ -1,18 +1,3 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 #include QMK_KEYBOARD_H
 
 enum layers {
@@ -23,18 +8,18 @@ enum layers {
     _MOUSE,
 };
 
-#define SYM    MO(_SYM)
+//#define SYM    MO(_SYM)
 #define FUN    MO(_FUN)
-#define NAV    MO(_NAV)
-#define MOUSE  MO(_MOUSE)
+//#define NAV    MO(_NAV)
+//#define MOUSE  MO(_MOUSE)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT(
      XXXXXXX , KC_Q ,  KC_W   ,  KC_E  , KC_R   , KC_T   ,                                              KC_Y,   KC_U ,  KC_I ,   KC_O ,  KC_P , XXXXXXX,
      KC_TAB  , KC_A ,  KC_S   ,  KC_D  , KC_F   , KC_G   ,                                              KC_H,   KC_J ,  KC_K ,   KC_L ,KC_SCLN, KC_ENT,
-     XXXXXXX , KC_Z ,  KC_X   ,  KC_C  , KC_V   , KC_B   , KC_LGUI, KC_LALT,           FUN ,  MOUSE,    KC_N,   KC_M ,KC_COMM, KC_DOT ,KC_SLSH, XXXXXXX,
-                                KC_F2  , XXXXXXX, KC_ALGR, KC_LSFT, CTL_T(KC_ESC),     SYM , KC_SPC, KC_BSPC, KC_DEL, XXXXXXX
+     XXXXXXX , KC_Z ,  KC_X   ,  KC_C  , KC_V   , KC_B   , KC_LGUI, KC_LALT,           FUN ,  KC_NO,    KC_N,   KC_M ,KC_COMM, KC_DOT ,KC_SLSH, XXXXXXX,
+                                KC_F2  , XXXXXXX, KC_ALGR, KC_LSFT, CTL_T(KC_ESC),     LT(_SYM, KC_ENT), LT(_NAV, KC_SPC), LT(_MOUSE, KC_BSPC), KC_DEL, XXXXXXX
     ),
 // double tap SYM to NAV, double tap FUN to MOUSE
 // check out https://github.com/andrewjrae/kyria-keymap#features for "X-case"
@@ -69,12 +54,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-enum combos {
-    FUN_SYM,
-};
+// enum combos {
+//     FUN_SYM,
+// };
 
-const uint16_t PROGMEM FUN_SYM_combo[] = {FUN, SYM, COMBO_END};
+// const uint16_t PROGMEM FUN_SYM_combo[] = {FUN, SYM, COMBO_END};
 
-combo_t key_combos[] = {
-    [FUN_SYM] = COMBO(FUN_SYM_combo, NAV),
-};
+// combo_t key_combos[] = {
+//     [FUN_SYM] = COMBO(FUN_SYM_combo, NAV),
+// };
