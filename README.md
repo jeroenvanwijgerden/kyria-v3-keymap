@@ -1,6 +1,6 @@
 # Setup
 
-`splitkb/kyria/rev3`
+Keyboard: `splitkb/kyria/rev3`
 
 # Compiling
 

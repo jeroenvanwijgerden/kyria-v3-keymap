@@ -8,10 +8,7 @@ enum layers {
     _MOUSE,
 };
 
-//#define SYM    MO(_SYM)
 #define FUN    MO(_FUN)
-//#define NAV    MO(_NAV)
-//#define MOUSE  MO(_MOUSE)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -47,9 +44,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 [_MOUSE] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                         _______, _______, KC_WH_D, KC_WH_U, _______, _______,
-      _______, _______, KC_ACL0, KC_ACL1, KC_ACL2, _______,                                         KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_WH_R,
-      _______, _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5,
+      _______, _______, KC_ACL0, KC_ACL1, KC_ACL2, _______,                                         _______, _______, KC_WH_D, KC_WH_U, _______, _______,
+      KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, KC_BTN1, _______,                                         KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_WH_R,
+      _______, _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
     ),
 };
