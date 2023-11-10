@@ -1,4 +1,6 @@
 #include QMK_KEYBOARD_H
+#include "features/casemodes.h"
+
 
 enum layers {
     _BASE = 0,
@@ -10,12 +12,17 @@ enum layers {
 
 #define FUN    MO(_FUN)
 
+enum custom_keycodes {
+    XCASE = SAFE_RANGE,
+};
+
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT(
-     XXXXXXX , KC_Q ,  KC_W   ,  KC_E  , KC_R   , KC_T   ,                                              KC_Y,   KC_U ,  KC_I ,   KC_O ,  KC_P , XXXXXXX,
-     KC_TAB  , KC_A ,  KC_S   ,  KC_D  , KC_F   , KC_G   ,                                              KC_H,   KC_J ,  KC_K ,   KC_L ,KC_SCLN, KC_ENT,
-     XXXXXXX , KC_Z ,  KC_X   ,  KC_C  , KC_V   , KC_B   , KC_LGUI, KC_LALT,           FUN ,  KC_NO,    KC_N,   KC_M ,KC_COMM, KC_DOT ,KC_SLSH, XXXXXXX,
+     XXXXXXX , KC_Q ,  KC_W   ,  KC_F  , KC_P   , KC_B   ,                                              KC_J,   KC_L ,  KC_U ,   KC_Y ,  KC_SCLN , XXXXXXX,
+     KC_TAB  , KC_A ,  KC_R   ,  KC_S  , KC_T   , KC_G   ,                                              KC_M,   KC_N ,  KC_E ,   KC_I , KC_O, XXXXXXX,
+     XXXXXXX , KC_Z ,  KC_X   ,  KC_C  , KC_D   , KC_V   , KC_LGUI, KC_LALT,           FUN ,  XCASE,    KC_K,   KC_H ,KC_COMM, KC_DOT ,KC_SLSH, XXXXXXX,
                                 KC_F2  , XXXXXXX, KC_ALGR, KC_LSFT, CTL_T(KC_ESC),     LT(_SYM, KC_ENT), LT(_NAV, KC_SPC), LT(_MOUSE, KC_BSPC), KC_DEL, XXXXXXX
     ),
 // double tap SYM to NAV, double tap FUN to MOUSE
@@ -31,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FUN] = LAYOUT(
       _______,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 , KC_F5,                                            KC_F6, KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 ,
-      _______, _______, _______, KC_PSCR,  KC_F5 , _______,                                        _______, KC_VOLU, KC_VOLD, KC_MUTE, _______, KC_F12,
+      KC_WAKE, _______, _______, KC_PSCR,  KC_F5 , _______,                                        _______, KC_VOLU, KC_VOLD, KC_MUTE, _______, KC_F12,
       KC_SLEP, _______, _______, _______, _______, _______, _______, _______,    _______, KC_RGUI, KC_RALT, _______, _______, _______, _______, _______,
                                  KC_PWR , _______, _______, _______, _______,    KC_RCTL, KC_RSFT, _______, _______, _______
     ),
@@ -60,3 +67,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // combo_t key_combos[] = {
 //     [FUN_SYM] = COMBO(FUN_SYM_combo, NAV),
 // };
+
+bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
+    switch (keycode) {
+        case KC_A ... KC_Z:
+        case KC_1 ... KC_0:
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Process case modes
+    if (!process_case_modes(keycode, record)) {
+        return false;
+    }
+
+    switch (keycode) {
+        case XCASE:
+            if (record->event.pressed) {
+                enable_xcase();
+            }
+            return false;
+        default:
+            return true;  // Process all other keycodes normally
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
